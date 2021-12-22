@@ -45,7 +45,7 @@ TEST(ScopedMeasurementTest, TestMoveMeasurement) {
 
   std::this_thread::sleep_for(std::chrono::seconds(2));
 
-  const auto func = [](CScopedMeasurement &&measure) {
+  const auto func = [](auto &&measure) {
     auto fu = std::async(std::launch::async, []() {
       std::this_thread::sleep_for(std::chrono::seconds(3));
     });

@@ -1,4 +1,5 @@
 #include "ScopedMeasurement.h"
+#include <cassert>
 #include <chrono>
 #include <iostream>
 
@@ -30,6 +31,9 @@ CScopedMeasurement::operator=(CScopedMeasurement &&rhs) noexcept {
 CScopedMeasurement::~CScopedMeasurement() { PrintTimeConsumed(); }
 
 void CScopedMeasurement::PrintTimeConsumed() const {
+
+  assert(mDetails != nullptr);
+
   const auto duration = static_cast<unsigned int>(
       duration_cast<milliseconds>(steady_clock::now() - mDetails->startTime)
           .count());

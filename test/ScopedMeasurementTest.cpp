@@ -36,3 +36,24 @@ TEST(ScopedMeasurementTest, MeasureBeforeScopeCompletion) {
   const std::string output = testing::internal::GetCapturedStdout();
   ASSERT_EQ(false, output.empty());
 }
+
+TEST(ScopedMeasurementTest, TestMoveMeasurement) {
+
+  testing::internal::CaptureStdout();
+
+  CScopedMeasurement m("MoveMeasurement");
+
+  std::this_thread::sleep_for(std::chrono::seconds(2));
+
+  const auto func = [](CScopedMeasurement &&measure) {
+    auto fu = std::async(std::launch::async, []() {
+      std::this_thread::sleep_for(std::chrono::seconds(3));
+    });
+    fu.get();
+    measure.PrintTimeConsumed();
+    const std::string output = testing::internal::GetCapturedStdout();
+    ASSERT_EQ(false, output.empty());
+  };
+
+  func(std::move(m));
+}

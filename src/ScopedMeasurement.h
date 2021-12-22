@@ -9,8 +9,8 @@ public:
   ~CScopedMeasurement();
   CScopedMeasurement(const CScopedMeasurement &) = delete;
   CScopedMeasurement &operator=(const CScopedMeasurement &) = delete;
-  CScopedMeasurement(CScopedMeasurement &&);
-  CScopedMeasurement &operator=(CScopedMeasurement &&);
+  CScopedMeasurement(CScopedMeasurement &&rhs) noexcept;
+  CScopedMeasurement &operator=(CScopedMeasurement &&rhs) noexcept;
 
   void PrintTimeConsumed() const;
 

@@ -16,4 +16,8 @@ jobs:
     - name: configure-gtest
       run:  sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make && sudo cp lib/*.a /usr/lib
     - name: configure
-      run: ./run_test.sh
+      run:  mkdir build && cd build && cmake ../test/.
+    - name: build
+      run:  cd build && make
+    - name: test
+      run: cd build/bin/ && ./ScopedMeasurementTest

@@ -8,8 +8,7 @@ namespace benchmark {
 class timer final {
 
 public:
-  explicit timer(const char *aIdentifier) {
-    identifier = aIdentifier;
+  explicit timer(const char *aIdentifier) : identifier(aIdentifier) {
     start_time = std::chrono::steady_clock::now();
   }
   ~timer() { print_time_consumed(); }
@@ -29,14 +28,14 @@ public:
     return get_elapsed_ns() / 1000.0;
   }
 
-  double get_elapsed_ns() const noexcept {
+  inline double get_elapsed_ns() const noexcept {
     const std::chrono::duration<double, std::nano> elapsed =
         std::chrono::steady_clock::now() - start_time;
     return elapsed.count();
   }
 
 private:
-  std::string identifier;
+  const std::string identifier;
   std::chrono::steady_clock::time_point start_time;
 };
 } // namespace benchmark

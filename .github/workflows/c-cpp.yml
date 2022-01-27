@@ -17,7 +17,7 @@ jobs:
       run:  sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make && sudo cp lib/*.a /usr/lib
     - name: configure
       run:  mkdir build && cd build && cmake ../ && make
-#     - name: build
-#       run:  cd build && make
-# #     - name: test
-# #       run: cd build/bin/ && ./WatchdogTest
+    - name: build
+      run:  cd build && make
+    - name: test
+      run: cd build/bin/ && ./WatchdogTest
